@@ -1,0 +1,8 @@
+langchain
+langchain-google-vertexai
+google-cloud-aiplatform
+tiktoken
+pydantic
+python-dotenv
+chromadb
+openai
