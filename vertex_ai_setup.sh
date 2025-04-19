@@ -29,39 +29,39 @@ fi
 ADC_JSON_PATH="${GOOGLE_APPLICATION_CREDENTIALS:-$HOME/.config/gcloud/application_default_credentials.json}"
 
 if [ ! -f "$ADC_JSON_PATH" ]; then
-    echo "❌ Application credentials file not found at $ADC_JSON_PATH"
+    echo "Application credentials file not found at $ADC_JSON_PATH"
     exit 1
 fi
 
 PROJECT_ID=$(jq -r '.quota_project_id' "$ADC_JSON_PATH")
 
 if [ -z "$PROJECT_ID" ] || [ "$PROJECT_ID" == "null" ]; then
-    echo "❌ quota_project_id not found in credentials file: $ADC_JSON_PATH"
+    echo "quota_project_id not found in credentials file: $ADC_JSON_PATH"
     exit 1
 fi
 
 # Step 5: Download service account key if needed
 if [ -f "$KEY_OUTPUT_PATH" ]; then
-    echo "🔑 Service account key already exists at $KEY_OUTPUT_PATH. Skipping download."
+    echo "Service account key already exists at $KEY_OUTPUT_PATH. Skipping download."
 else
-    echo "🔑 Creating key for service account: $SERVICE_ACCOUNT_EMAIL"
+    echo "Creating key for service account: $SERVICE_ACCOUNT_EMAIL"
     gcloud iam service-accounts keys create "$KEY_OUTPUT_PATH" \
       --iam-account="$SERVICE_ACCOUNT_EMAIL" \
       --project="$PROJECT_ID"
 
     if [ $? -ne 0 ]; then
-        echo "❌ Failed to create service account key. Exiting."
+        echo "Failed to create service account key. Exiting."
         exit 1
     fi
-    echo "🎉 Key downloaded successfully!"
+    echo "Key downloaded successfully."
 fi
 
 # Set GOOGLE_APPLICATION_CREDENTIALS if not already exported
 if [ -z "$GOOGLE_APPLICATION_CREDENTIALS" ]; then
     export GOOGLE_APPLICATION_CREDENTIALS="$KEY_OUTPUT_PATH"
-    echo "🔐 Exported GOOGLE_APPLICATION_CREDENTIALS"
+    echo "Exported GOOGLE_APPLICATION_CREDENTIALS"
 else
-    echo "🔐 GOOGLE_APPLICATION_CREDENTIALS already set: $GOOGLE_APPLICATION_CREDENTIALS"
+    echo "GOOGLE_APPLICATION_CREDENTIALS already set: $GOOGLE_APPLICATION_CREDENTIALS"
 fi
 
-echo "✅ Setup complete."
+echo "Setup complete."
