@@ -3,6 +3,8 @@ langchain-google-vertexai
 langchain-community
 beautifulsoup4
 langchain_openai
+langchain_chroma
+langchain-huggingface
 sentence-transformers
 
 google-cloud-aiplatform

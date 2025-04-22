@@ -1,3 +1,4 @@
 .env
 .env.bak
 chromadb*
+generative-ai/.idea
