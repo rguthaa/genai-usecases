@@ -6,12 +6,12 @@ from embedding.embedding_manager import EmbeddingManager
 from summarizer.search_and_summarize import DocumentSearchSummarizer
 
 class InternalDocPipeline:
-    def __init__(self, doc_paths, embedding_dir, model_type="openai"):
+    def __init__(self, doc_paths, embedding_dir, embedding_model_type: str ="openai", llm_model_type="openai"):
         self.doc_paths = doc_paths
         self.embedding_dir = embedding_dir
         self.markdown_cleaner = MarkdownPreprocessor()
         self.loader = DocumentLoader(self.markdown_cleaner)
-        self.embedder = EmbeddingManager(model_type=model_type)
+        self.embedder = EmbeddingManager(model_type=embedding_model_type)
         self.summarizer = DocumentSearchSummarizer(self.embedder)
 
     def _hash_content(self, content: str) -> str:
@@ -54,8 +54,6 @@ class InternalDocPipeline:
         docs = self.embedder.similarity_search(question)
         seen_sources = set()
         unique_docs = []
-
-        print('query docs', docs)
 
         for doc in docs:
             source = doc.metadata.get("source")

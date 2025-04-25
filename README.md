@@ -65,7 +65,7 @@ Step through the cells to load data, clean, embed, search, and generate LLM-base
 ### A. Clone the Repository (if not already done)
 ```bash
 git clone https://github.com/rguthaa/genai-usecases.git
-cd genai-usecases/usecases/internal_doc_pipeline
+cd genai-usecases
 ```
 
 ### B. Setup Environment
@@ -78,8 +78,8 @@ If you use Vertex AI, the setup script will handle this step for you.
 
 ### D. Run the Pipeline
 ```bash
-cd src
-python main.py
+cd usecases/internal_doc_pipeline/src
+python main.py 1 
 ```
 The script will process the docs, create embeddings, run retrieval, and summarize with your chosen LLM.
 
