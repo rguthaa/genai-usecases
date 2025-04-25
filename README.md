@@ -27,8 +27,18 @@ cd genai-usecases/usecases/internal_doc_pipeline
 ```
 
 ### B. Launch Jupyter Notebook
+
+If you don’t have Jupyter installed, run:
 ```bash
-cd notebooks
+pip install jupyter
+```
+Or, in a virtual environment:
+```bash
+source venv/bin/activate
+pip install jupyter
+```
+Now launch:
+```bash
 jupyter notebook
 ```
 
